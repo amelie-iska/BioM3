@@ -128,13 +128,99 @@ tensor([[1.0000, 0.1840],
 
 ## Stage 2: Facilitator Sampling
 
-🚧 **Coming Soon** 🚧
+### Overview
 
-This stage will contain scripts and models for the Facilitator Sampling process. Check back for:
-- Configuration files
-- Model weights
-- Running instructions
-- Output examples
+In this stage, the **Facilitator model** takes the text embeddings (z_t) computed in Stage 1 and generates **facilitated embeddings (z_c)**. The facilitated embeddings align more closely with protein embeddings (z_p) and reduce discrepancies, as demonstrated by **Mean Squared Error (MSE)** and **Maximum Mean Discrepancy (MMD)** metrics.
+
+### Model Weights
+
+Before running the model, ensure you have:
+- Configuration file: `stage2_facilitator_config.json`
+- Pre-trained weights: `BioM3_Facilitator_epoch20.bin`
+
+### Running the Facilitator Model
+
+1. Clone the repository:
+```bash
+git clone https://huggingface.co/your_username/BioM3_Facilitator
+cd BioM3_Facilitator
+```
+
+2. Run inference:
+```bash
+python run_facilitator_inference.py \
+    --json_path "stage2_facilitator_config.json" \
+    --model_path "./weights/Facilitator/BioM3_Facilitator_epoch20.bin" \
+    --input_data_path "outputs/Stage1_test_prompts_PDZ.pt" \
+    --output_data_path "outputs/Stage2_test_prompts_PDZ.pt"
+```
+
+Arguments:
+- **json_path**: Path to the JSON configuration file
+- **model_path**: Path to the pre-trained facilitator weights
+- **input_data_path**: Path to the input embeddings (z_t and z_p) generated in Stage 1
+- **output_data_path**: Path to save the facilitated embeddings (z_c)
+
+### Expected Output
+
+The script provides the following outputs:
+
+1. **Latent Embedding Shapes**
+   - z_t: Text embeddings
+   - z_p: Protein embeddings
+   - z_c: Facilitated embeddings
+
+2. **Vector Magnitudes**
+   - L2 norms of z_t, z_p, and z_c for a given batch
+
+3. **Mean Squared Error (MSE)**
+   - MSE between facilitated embeddings (z_c) and protein embeddings (z_p)
+   - MSE between text embeddings (z_t) and protein embeddings (z_p)
+
+4. **Maximum Mean Discrepancy (MMD)**
+   - MMD between facilitated embeddings (z_c) and protein embeddings (z_p)
+   - MMD between text embeddings (z_t) and protein embeddings (z_p)
+
+### Sample Output
+
+```plaintext
+=== Facilitator Model Output ===
+Shape of z_t (Text Embeddings): torch.Size([2, 512])
+Shape of z_p (Protein Embeddings): torch.Size([2, 512])
+Shape of z_c (Facilitated Embeddings): torch.Size([2, 512])
+
+=== Norm (L2 Magnitude) Results for Batch Index 0 ===
+Norm of z_t (Text Embedding): 29.697054
+Norm of z_p (Protein Embedding): 5.337610
+Norm of z_c (Facilitated Embedding): 3.244318
+
+=== Mean Squared Error (MSE) Results ===
+MSE between Facilitated Embeddings (z_c) and Protein Embeddings (z_p): 0.069909
+MSE between Text Embeddings (z_t) and Protein Embeddings (z_p): 1.612812
+
+=== Max Mean Discrepancy (MMD) Results ===
+MMD between Facilitated Embeddings (z_c) and Protein Embeddings (z_p): 0.000171
+MMD between Text Embeddings (z_t) and Protein Embeddings (z_p): 0.005172
+```
+
+### What the Output Means
+
+1. **Latent Shapes**:
+   - Ensures that z_c has the same shape as z_p and z_t
+
+2. **Norms**:
+   - z_c is closer in magnitude to z_p compared to z_t, showing that the facilitator model effectively aligns the embeddings
+
+3. **MSE**:
+   - Lower MSE for z_c and z_p compared to z_t and z_p confirms that z_c approximates z_p better
+
+4. **MMD**:
+   - The MMD loss shows that the **distribution** of z_c is closer to z_p than the original z_t
+
+### Saving the Output
+
+The facilitated embeddings are saved to the specified output_data_path for further stages.
+
 
 ## Stage 3: ProteoScribe
 
