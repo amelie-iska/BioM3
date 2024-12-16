@@ -1,0 +1,16 @@
+{
+  "model_checkpoint_path": "/project/andrewferguson/niksapraljak/Project_ProtARDM/logs/Stage2_facilitator/Stage2_facilitator/checkpoints/Stage2_MMD_Pfam_Swiss_epoch20_ckpt/last.ckpt",
+  "model_type": "pfam",
+  "fast_dev_run": 0,
+  "loss_type": "MMD",
+  "dataset_type": "default",
+  "precision": "32",
+  "stage1_dataset_path": "None",
+  "stage2_output_path": "None",
+  "seed": 42,
+  "num_workers": 12,
+  "dropout": 0.0,
+  "batch_size": 64,
+  "emb_dim": 512,
+  "hid_dim": 1024
+}

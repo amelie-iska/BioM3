@@ -56,6 +56,9 @@ def parse_arguments():
                         help="Path to the JSON configuration file (stage1_config.json)")
     parser.add_argument('--model_path', type=str, required=True,
                         help="Path to the pre-trained model weights (pytorch_model.bin)")
+    parser.add_argument('--output_path', type=str, required=True,
+                        help="Path to save output embeddings")
+
     return parser.parse_args()
 
 # Step 6: Compute Homology Probabilities
@@ -90,7 +93,9 @@ if __name__ == '__main__':
     # Run inference and store z_t, z_p
     z_t_list = []
     z_p_list = []
-
+    text_list = []
+    protein_list = []
+    
     with torch.no_grad():
         for idx in range(len(test_dataset)):
             batch = test_dataset[idx]
@@ -100,10 +105,24 @@ if __name__ == '__main__':
             z_p = outputs['seq_joint_latent']   # Protein latent
             z_t_list.append(z_t)
             z_p_list.append(z_p)
+            
+            protein_sequence = test_dataset.protein_sequence_list[idx]
+            text_prompt = test_dataset.text_captions_list[idx]
+            text_list.append(text_prompt)
+            protein_list.append(protein_sequence)
+
 
     # Stack all latent vectors
     z_t_tensor = torch.vstack(z_t_list)  # Shape: (num_samples, latent_dim)
     z_p_tensor = torch.vstack(z_p_list)  # Shape: (num_samples, latent_dim)
+    
+    # Prepare embedding dict.
+    embedding_dict = {
+            'sequence': protein_list,
+            'text_prompts': text_list,
+            'z_t': z_t_tensor,
+            'z_p': z_p_tensor
+    }
 
     # Compute Dot Product scores
     dot_product_scores = torch.matmul(z_p_tensor, z_t_tensor.T)  # Dot product
@@ -138,4 +157,5 @@ if __name__ == '__main__':
 
     print("\n=== Homology Matrix (Dot Product of Normalized z_p) ===")
     print(homology_matrix)
-
+    
+    torch.save(embedding_dict, config_args_parser.output_path)
