@@ -118,6 +118,11 @@ tensor([[9.8060e-01, 3.7078e-07],
 Text-Normalized Probabilities:
 tensor([[9.9596e-01, 4.0412e-03],
         [1.8076e-06, 1.0000e+00]])
+
+=== Homology Matrix (Dot Product of Normalized z_p) ===
+tensor([[1.0000, 0.1840],
+        [0.1840, 1.0000]])
+
 ```
 
 ## Stage 2: Facilitator Sampling

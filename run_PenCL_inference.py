@@ -58,6 +58,20 @@ def parse_arguments():
                         help="Path to the pre-trained model weights (pytorch_model.bin)")
     return parser.parse_args()
 
+# Step 6: Compute Homology Probabilities
+def compute_homology_matrix(z_p_tensor):
+    """
+    Compute the homology matrix as cosine similarities between protein latent vectors.
+    """
+    # Normalize z_p to unit vectors
+    z_p_normalized = F.normalize(z_p_tensor, p=2, dim=1)  # L2 normalization
+
+    # Compute cosine similarity matrix
+    homology_matrix = torch.matmul(z_p_normalized, z_p_normalized.T)  # (num_samples x num_samples)
+
+    return homology_matrix
+
+
 # Main Execution
 if __name__ == '__main__':
     # Parse arguments
@@ -101,6 +115,9 @@ if __name__ == '__main__':
     # Compute magnitudes (L2 norms) for z_t and z_p
     z_p_magnitude = torch.norm(z_p_tensor, dim=1)  # L2 norm for each protein latent vector
     z_t_magnitude = torch.norm(z_t_tensor, dim=1)  # L2 norm for each text latent vector
+    
+    # Compute homology probabilities
+    homology_matrix = compute_homology_matrix(z_p_tensor)
 
     # Print results
     print("\n=== Inference Results ===")
@@ -118,3 +135,7 @@ if __name__ == '__main__':
 
     print("\nText-Normalized Probabilities (Softmax across Texts for each Protein):")
     print(text_given_protein_probs)
+
+    print("\n=== Homology Matrix (Dot Product of Normalized z_p) ===")
+    print(homology_matrix)
+
