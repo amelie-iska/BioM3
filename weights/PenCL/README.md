@@ -17,6 +17,7 @@ To download the **PenCL epoch 20 pre-trained weights** as a `.bin` file from Goo
 ```bash
 pip install gdown
 gdown --id 1Lup7Xqwa1NjJpoM2uvvBAdghoM-fecEj -O BioM3_PenCL_epoch20.bin
+```
 
 ---
 
@@ -65,5 +66,4 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(model_weights_path, map_location="cpu"))
     model.eval()
     print("Model loaded successfully with weights!")
-
-
+```
