@@ -62,7 +62,7 @@ cd BioM3_PenCL
 ```bash
 python run_PenCL_inference.py \
     --json_path "stage1_config.json" \
-    --model_path "BioM3_PenCL_epoch20.bin"
+    --model_path "./weights/PenCL/BioM3_PenCL_epoch20.bin"
 ```
 
 ### Example Input Data
