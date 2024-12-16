@@ -2,7 +2,7 @@
 license: apache-2.0
 ---
 
-# BioM3: Protein Language Model Pipeline
+# BioM3: Biological Multi-Modal Model for Protein Design
 
 ## Citation
 
@@ -64,6 +64,20 @@ python run_PenCL_inference.py \
     --json_path "stage1_config.json" \
     --model_path "BioM3_PenCL_epoch20.bin"
 ```
+
+### Example Input Data
+
+The script demonstrates inference using two protein-text pairs from the SwissProt dataset:
+
+**Pair 1:**
+- **Protein Sequence:** MSLEQKKGADIISKILQIQNSIGKTTSPSTLKTKLSEISRKEQENARIQSKL...
+- **Text Description:** PROTEIN NAME: 2' cyclic ADP-D-ribose synthase AbTIR...
+
+**Pair 2:**
+- **Protein Sequence:** MRFQVIVAAATITMITSYIPGVASQSTSDGDDLFVPVSNFDPKSIFPEIKHP...
+- **Text Description:** PROTEIN NAME: Glucan endo-1,3-beta-D-glucosidase 1...
+
+These pairs demonstrate how the model aligns protein sequences with their corresponding functional descriptions. The model will compute embeddings for both the sequences and descriptions, then calculate their similarities using dot product scores.
 
 ### Expected Output
 
