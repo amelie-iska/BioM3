@@ -19,18 +19,21 @@ doi: https://doi.org/10.1101/2024.11.11.622734
 ## Software Requirements
 
 ### Required Dependencies
-- Python 3.8 or later
+- Python 3.8 or later (recommend Python 3.10 to package conflicts)
 - PyTorch (latest stable version)
-- PyTorch Lightning
+- Huggingface
+- fair-esm
 - pandas
-- pyyaml
 
 ### Installation
 
 Create and activate a conda environment:
 ```bash
-conda create -n BioM3_env python=3.8
-conda activate BioM3_env
+conda create -p /env_path/BioM3_env python=3.10 # /env_path/ is the location that contains the conda env
+conda activate /env_path/BioM3_env
+cd /path/BioM3 # /path/ is the location that contains the huggingface repo for BioM3
+sh torch_requirements.sh # install torch software
+pip install -r requirements.txt # install remaining packages
 ```
 
 Install the required packages:
