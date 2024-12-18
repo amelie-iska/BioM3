@@ -32,10 +32,31 @@ Create and activate a conda environment and install the required packages:
 ```bash
 conda create -p /env_path/BioM3_env python=3.10 # /env_path/ is the location that contains the conda env
 conda activate /env_path/BioM3_env
+git clone https://huggingface.co/niksapraljak1/BioM3 /path/ 
 cd /path/BioM3 # /path/ is the location that contains the huggingface repo for BioM3
 sh torch_requirements.sh # install torch software
 pip install -r requirements.txt # install remaining packages
 ```
+
+## Model Weights Installation
+
+Before running models, change directory to `BioM3/weights` folder, follow instructions, and download pretrained weights for the desired BioM3 configuration:
+
+```bash
+cd /path/BioM3/weights
+# after changing directory, follow instructions of README.md to install weights for each model component
+```
+
+Note: choose the desired BioM3 configuration/checkpoint, then install weights for each folder:
+- `/path/BioM3/weights/PenCL`
+- `/path/BioM3/weights/Facilitator` 
+- `/path/BioM3/weights/ProteoScribe`
+
+Each folder contains a `README.md` detailing the different model weight configurations. For benchmarking, the optimal configuration is:
+- `BioM3_PenCL_epoch20.bin`
+- `BioM3_Facilitator_epoch20.bin`
+- `BioM3_ProteoScribe_epoch20.bin`
+
 
 ## Stage 1: PenCL Inference
 
@@ -51,10 +72,9 @@ Before running the model, ensure you have:
 
 ### Running the Model
 
-1. Clone the repository:
+1. Change directory to BioM3 repo:
 ```bash
-git clone https://huggingface.co/your_username/BioM3_PenCL
-cd BioM3_PenCL
+cd /path/BioM3 # /path/ where is the location to the cloned BioM3 repo
 ```
 
 2. Run inference:
@@ -139,13 +159,7 @@ Before running the model, ensure you have:
 
 ### Running the Facilitator Model
 
-1. Clone the repository:
-```bash
-git clone https://huggingface.co/your_username/BioM3_Facilitator
-cd BioM3_Facilitator
-```
-
-2. Run inference:
+1. Run sampling:
 ```bash
 python run_Facilitator_sample.py \
     --json_path "stage2_facilitator_config.json" \
