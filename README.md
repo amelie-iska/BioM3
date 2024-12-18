@@ -148,11 +148,11 @@ cd BioM3_Facilitator
 
 2. Run inference:
 ```bash
-python run_facilitator_inference.py \
+python run_Facilitator_sample.py \
     --json_path "stage2_facilitator_config.json" \
     --model_path "./weights/Facilitator/BioM3_Facilitator_epoch20.bin" \
-    --input_data_path "outputs/Stage1_test_prompts_PDZ.pt" \
-    --output_data_path "outputs/Stage2_test_prompts_PDZ.pt"
+    --input_data_path "test_PenCL_embeddings.pt" \
+    --output_data_path "test_Facilitator_embeddings.pt"
 ```
 
 Arguments:
