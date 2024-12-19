@@ -269,15 +269,6 @@ The facilitated embeddings are saved to the specified output_data_path for furth
 
 ## Stage 3: ProteoScribe
 
-[Previous sections remain the same...]
-
-### Expected Output
-
-The script generates multiple sequence variants for each input embedding. Here's the sample output showing different replicas:
-[Previous sections remain the same...]
-
-## Stage 3: ProteoScribe
-
 ### Overview
 
 In this stage, the **ProteoScribe model** takes the facilitated embeddings (z_c) from Stage 2 and generates novel protein sequences that match the desired functional description. The model outputs multiple sequence variants (replicas) for each input embedding.
