@@ -119,30 +119,40 @@ The script provides the following outputs:
 
 #### Sample Output
 ```plaintext
-=== Inference Results ===
-Shape of z_p (protein latent): torch.Size([2, 512])
-Shape of z_t (text latent): torch.Size([2, 512])
+Shape of z_p (protein latent): torch.Size([5, 512])
+Shape of z_t (text latent): torch.Size([5, 512])
 
-Magnitudes of z_p vectors: tensor([5.3376, 4.8237])
-Magnitudes of z_t vectors: tensor([29.6971, 27.6714])
+Magnitudes of z_p vectors: tensor([4.2894, 4.0314, 4.2747, 4.0478, 3.9959])
+Magnitudes of z_t vectors: tensor([33.3649, 32.5055, 31.6935, 33.3630, 29.6486])
 
 === Dot Product Scores Matrix ===
-tensor([[ 7.3152,  1.8080],
-        [ 3.3922, 16.6157]])
+tensor([[28.8613, -3.3248, -0.4564,  7.5766,  3.3064],
+        [-0.7815, 28.2294, 10.3146,  3.9422, 11.2805],
+        [-2.7591, 12.8974, 30.3760, -0.2481,  2.5218],
+        [10.4455,  3.6447, -3.9202, 30.2053,  7.3378],
+        [ 5.3883, 10.0869, -1.4182,  8.1128, 27.7488]])
 
 === Normalized Probabilities ===
-Protein-Normalized Probabilities:
-tensor([[9.8060e-01, 3.7078e-07],
-        [1.9398e-02, 1.0000e+00]])
+Protein-Normalized Probabilities (Softmax across Proteins for each Text):
+tensor([[1.0000e+00, 1.9778e-14, 4.0705e-14, 1.4876e-10, 2.4255e-11],
+        [1.3374e-13, 1.0000e+00, 1.9384e-09, 3.9271e-12, 7.0454e-08],
+        [1.8511e-14, 2.1949e-07, 1.0000e+00, 5.9466e-14, 1.1068e-11],
+        [1.0049e-08, 2.1039e-11, 1.2746e-15, 1.0000e+00, 1.3665e-09],
+        [6.3943e-11, 1.3208e-08, 1.5558e-14, 2.5430e-10, 1.0000e+00]])
 
-Text-Normalized Probabilities:
-tensor([[9.9596e-01, 4.0412e-03],
-        [1.8076e-06, 1.0000e+00]])
+Text-Normalized Probabilities (Softmax across Texts for each Protein):
+tensor([[1.0000e+00, 1.0513e-14, 1.8512e-13, 5.7037e-10, 7.9733e-12],
+        [2.5160e-13, 1.0000e+00, 1.6584e-08, 2.8327e-11, 4.3569e-08],
+        [4.0702e-15, 2.5655e-08, 1.0000e+00, 5.0136e-14, 7.9997e-13],
+        [2.6208e-09, 2.9167e-12, 1.5118e-15, 1.0000e+00, 1.1715e-10],
+        [1.9452e-10, 2.1357e-08, 2.1524e-13, 2.9662e-09, 1.0000e+00]])
 
 === Homology Matrix (Dot Product of Normalized z_p) ===
-tensor([[1.0000, 0.1840],
-        [0.1840, 1.0000]])
-
+tensor([[ 1.0000, -0.0706, -0.1477,  0.1752,  0.1810],
+        [-0.0706,  1.0000,  0.1573,  0.0197,  0.2951],
+        [-0.1477,  0.1573,  1.0000,  0.0767, -0.0990],
+        [ 0.1752,  0.0197,  0.0767,  1.0000,  0.2231],
+        [ 0.1810,  0.2951, -0.0990,  0.2231,  1.0000]])
 ```
 
 ## Stage 2: Facilitator Sampling
@@ -162,7 +172,7 @@ Before running the model, ensure you have:
 1. Run sampling:
 ```bash
 python run_Facilitator_sample.py \
-    --json_path "stage2_facilitator_config.json" \
+    --json_path "stage2_config.json" \
     --model_path "./weights/Facilitator/BioM3_Facilitator_epoch20.bin" \
     --input_data_path "test_PenCL_embeddings.pt" \
     --output_data_path "test_Facilitator_embeddings.pt"
@@ -198,22 +208,22 @@ The script provides the following outputs:
 
 ```plaintext
 === Facilitator Model Output ===
-Shape of z_t (Text Embeddings): torch.Size([2, 512])
-Shape of z_p (Protein Embeddings): torch.Size([2, 512])
-Shape of z_c (Facilitated Embeddings): torch.Size([2, 512])
+Shape of z_t (Text Embeddings): torch.Size([5, 512])
+Shape of z_p (Protein Embeddings): torch.Size([5, 512])
+Shape of z_c (Facilitated Embeddings): torch.Size([5, 512])
 
 === Norm (L2 Magnitude) Results for Batch Index 0 ===
-Norm of z_t (Text Embedding): 29.697054
-Norm of z_p (Protein Embedding): 5.337610
-Norm of z_c (Facilitated Embedding): 3.244318
+Norm of z_t (Text Embedding): 33.364857
+Norm of z_p (Protein Embedding): 4.289446
+Norm of z_c (Facilitated Embedding): 3.976427
 
 === Mean Squared Error (MSE) Results ===
-MSE between Facilitated Embeddings (z_c) and Protein Embeddings (z_p): 0.069909
-MSE between Text Embeddings (z_t) and Protein Embeddings (z_p): 1.612812
+MSE between Facilitated Embeddings (z_c) and Protein Embeddings (z_p): 0.013486
+MSE between Text Embeddings (z_t) and Protein Embeddings (z_p): 1.937837
 
 === Max Mean Discrepancy (MMD) Results ===
-MMD between Facilitated Embeddings (z_c) and Protein Embeddings (z_p): 0.000171
-MMD between Text Embeddings (z_t) and Protein Embeddings (z_p): 0.005172
+MMD between Facilitated Embeddings (z_c) and Protein Embeddings (z_p): 0.000009
+MMD between Text Embeddings (z_t) and Protein Embeddings (z_p): 0.004736
 ```
 
 ### What the Output Means
