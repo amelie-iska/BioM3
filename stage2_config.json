@@ -1,5 +1,5 @@
 {
-  "model_checkpoint_path": "/project/andrewferguson/niksapraljak/Project_ProtARDM/logs/Stage2_facilitator/Stage2_facilitator/checkpoints/Stage2_MMD_Pfam_Swiss_epoch20_ckpt/last.ckpt",
+  "model_checkpoint_path": "None",
   "model_type": "pfam",
   "fast_dev_run": 0,
   "loss_type": "MMD",
