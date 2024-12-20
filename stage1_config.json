@@ -4,8 +4,8 @@
     "tb_logger_path": "None",
     "tb_logger_folder": "None",
     "version_name": "None",
-    "model_checkpoint_path": "/project/andrewferguson/niksapraljak/Project_ProtARDM/logs/Stage1_final_models/checkpoints/Pretraining_PENCiL_45M/epoch=19-step=116600.ckpt",
-    "output_dict_path": "/project/ranganathanr/niksapraljak/BioM3_PDZ/outputs/output_dict.pt",
+    "model_checkpoint_path": "None",
+    "output_dict_path": "None",
     "valid_size": 0.2,
     "epochs": 10,
     "acc_grad_batches": 1,
@@ -44,7 +44,5 @@
     "bLM_n_layers_to_finetune": 1,
     "proj_embedding_dim": 512,
     "dropout": 0.1,
-    "head_lr": 0.0005,
-    "inference_data_path": "/project/ranganathanr/niksapraljak/BioM3_PDZ/data/test_prompts_PDZ_swissprot_pfam_dataset.csv",
-    "inference_output_path": "/project/ranganathanr/niksapraljak/BioM3_PDZ/outputs/Stage1_test_prompts_PDZ.pt"
+    "head_lr": 0.0005
 }

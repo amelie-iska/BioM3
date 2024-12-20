@@ -48,11 +48,13 @@ cd /path/BioM3/weights
 ```
 
 Note: choose the desired BioM3 configuration/checkpoint, then install weights for each folder:
+- `/path/BioM3/weights/LLMs` # install ESM2 and PubMedBert pretrained wieghts for compiling PenCL
 - `/path/BioM3/weights/PenCL`
 - `/path/BioM3/weights/Facilitator` 
 - `/path/BioM3/weights/ProteoScribe`
 
 Each folder contains a `README.md` detailing the different model weight configurations. For benchmarking, the optimal configuration is:
+- `esm2_t33_650M_UR50D.pt`, `esm2_t33_650M_UR50D-contact-regression.pt`, and `BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext`
 - `BioM3_PenCL_epoch20.bin`
 - `BioM3_Facilitator_epoch20.bin`
 - `BioM3_ProteoScribe_epoch20.bin`
@@ -68,9 +70,20 @@ This stage demonstrates how to perform inference using the **BioM3 PenCL model**
 
 Before running the model, ensure you have:
 - Configuration file: `stage1_config.json`
-- Pre-trained weights: `BioM3_PenCL_epoch20.bin`
+- Pre-trained weights: `BioM3_PenCL_epoch20.bin`, `esm2_t33_650M_UR50D.pt`, `esm2_t33_650M_UR50D-contact-regression.pt`, and `BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext`. 
 
 ### Running the Model
+
+0. Change json configuration for Stage 1:
+
+```bash
+vim stage1_config.json
+
+# replace <working_directory> with your path
+"seq_model_path": "<working_directory>/BioM3/weights/LLMs/esm2_t33_650M_UR50D.pt"
+"text_model_path": "<working_directory>/weights/LLMs/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext",
+
+```
 
 1. Change directory to BioM3 repo:
 ```bash
