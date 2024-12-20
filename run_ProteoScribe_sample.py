@@ -152,8 +152,7 @@ if __name__ == '__main__':
     config_args = convert_to_namespace(config_dict) 
 
     # Set device if not specified in config
-    if not hasattr(config_args, 'device'):
-        config_args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    config_args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # load test dataset
     embedding_dataset = torch.load(config_args_parser.input_path)

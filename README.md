@@ -16,6 +16,26 @@ doi: https://doi.org/10.1101/2024.11.11.622734
 
 [Read the paper on bioRxiv](https://www.biorxiv.org/content/10.1101/2024.11.11.622734v1)
 
+
+## Hardware Requirements and Testing Environment
+
+This code has been tested on the following High-Performance Computing (HPC) environment:
+
+### Hardware Specifications
+- **CPU**: Intel(R) Xeon(R) Gold 6346 CPU @ 3.10GHz
+- **CPU Cores**: 32 (2 NUMA nodes with 16 cores each)
+- **GPU**: NVIDIA A100-PCIE-40GB
+- **RAM**: 251GB
+- **Operating System**: CentOS Linux 8
+
+### Compute Environment
+- **Job Scheduler**: Slurm
+- **Allocation**:
+  - Number of nodes: 1
+  - CPUs per task: 12
+  - Memory per node: 93.7GB
+  - GPUs per node: 1 (A100)
+
 ## Software Requirements
 
 ### Required Dependencies
