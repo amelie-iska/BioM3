@@ -16,6 +16,51 @@ doi: https://doi.org/10.1101/2024.11.11.622734
 
 [Read the paper on bioRxiv](https://www.biorxiv.org/content/10.1101/2024.11.11.622734v1)
 
+## Codebase Structure 
+```
+.
+├── README.md
+├── requirements.txt
+├── run_Facilitator_sample.py
+├── run_PenCL_inference.py
+├── run_ProteoScribe_sample.py
+├── stage1_config.json
+├── Stage1_source
+│   ├── helper_funcs.py
+│   ├── model.py
+│   ├── PL_wrapper.py
+│   └── preprocess.py
+├── stage2_config.json
+├── stage3_config.json
+├── Stage3_source
+│   ├── animation_tools.py
+│   ├── cond_diff_transformer_layer.py
+│   ├── diff_transformer_layer.py
+│   ├── DSEma.py
+│   ├── eval_metrics.py
+│   ├── helper_funcs.py
+│   ├── __init__.py
+│   ├── PL_wrapper.py
+│   ├── preprocess.py
+│   ├── sampling_analysis.py
+│   ├── transformer_sampling_helper.py
+│   └── transformer_training_helper.py
+├── torch_requirements.sh
+└── weights
+    ├── Facilitator
+    │   └── README.md
+    ├── LLMs
+    │   └── README.md
+    ├── PenCL
+    │   └── README.md
+    ├── ProteoScribe
+    │   └── README.md
+    └── README.md
+
+8 directories, 30 files
+```
+
+
 
 ## Hardware Requirements and Testing Environment
 
